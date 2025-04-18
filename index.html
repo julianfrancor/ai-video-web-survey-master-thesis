@@ -175,13 +175,13 @@
             </div>
             <div class="video-container">
                 <video controls id="video-human-2">
-                    <source src="humano-video2.mp4" type="video/mp4">
+                    <source src="content/humano-video2.mp4" type="video/mp4">
                 </video>
                 <button onclick="registerInterest('human-2')">Me interesa este producto</button>
             </div>
             <div class="video-container">
                 <video controls id="video-human-3">
-                    <source src="humano-video3.mp4" type="video/mp4">
+                    <source src="content/humano-video3.mp4" type="video/mp4">
                 </video>
                 <button onclick="registerInterest('human-3')">Me interesa este producto</button>
             </div>
@@ -262,6 +262,10 @@
                 interestClicks
             };
 
+            // Mostrar mensaje inmediatamente
+            showToast('🎉 Respuestas enviadas. ¡Gracias por participar!');
+
+            // Enviar datos sin esperar confirmación
             fetch('https://script.google.com/macros/s/AKfycbxd9zSh6xZfaEIoaWMM0l-YfYZ9DW7M51bj-Jh-eoz78uwnGKsV5A6FjW08SQRqyyTd/exec', {
                 method: 'POST',
                 mode: 'no-cors',
@@ -269,23 +273,20 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(surveyResults)
-            })
-            .then(() => {
-                showToast('🎉 Respuestas enviadas. ¡Gracias por participar!');
-                document.getElementById('survey-form').reset();
-                document.getElementById('participant-name').value = '';
-                document.getElementById('participant-age').value = '';
-                document.getElementById('participant-profession').value = '';
-                document.getElementById('additional-comments').value = '';
-                videoTimes = {};
-                interestClicks = {};
-                document.querySelectorAll('video').forEach(video => {
-                    videoTimes[video.id] = 0;
-                });
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                showToast('⚠️ Error al enviar los datos.');
+            });
+
+            // Limpiar formulario
+            document.getElementById('survey-form').reset();
+            document.getElementById('participant-name').value = '';
+            document.getElementById('participant-age').value = '';
+            document.getElementById('participant-profession').value = '';
+            document.getElementById('additional-comments').value = '';
+
+            // Reiniciar datos
+            videoTimes = {};
+            interestClicks = {};
+            document.querySelectorAll('video').forEach(video => {
+                videoTimes[video.id] = 0;
             });
         }
     </script>
