@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Videos - IA vs Humano</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        .video-container { margin-bottom: 30px; }
+        button { margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Evaluación de Videos - IA vs Humano</h1>
+
+    <div id="videos">
+        <!-- Videos IA -->
+        <h2>Videos generados por IA</h2>
+        <div class="video-container">
+            <video width="100%" controls id="video-ia-1">
+                <source src="ia-video1.mp4" type="video/mp4">
+            </video>
+            <button onclick="registerInterest('ia-1')">Me interesa este producto</button>
+        </div>
+        <div class="video-container">
+            <video width="100%" controls id="video-ia-2">
+                <source src="ia-video2.mp4" type="video/mp4">
+            </video>
+            <button onclick="registerInterest('ia-2')">Me interesa este producto</button>
+        </div>
+        <div class="video-container">
+            <video width="100%" controls id="video-ia-3">
+                <source src="ia-video3.mp4" type="video/mp4">
+            </video>
+            <button onclick="registerInterest('ia-3')">Me interesa este producto</button>
+        </div>
+
+        <!-- Videos Humanos -->
+        <h2>Videos generados por Humanos</h2>
+        <div class="video-container">
+            <video width="100%" controls id="video-human-1">
+                <source src="humano-video1.mp4" type="video/mp4">
+            </video>
+            <button onclick="registerInterest('human-1')">Me interesa este producto</button>
+        </div>
+        <div class="video-container">
+            <video width="100%" controls id="video-human-2">
+                <source src="humano-video2.mp4" type="video/mp4">
+            </video>
+            <button onclick="registerInterest('human-2')">Me interesa este producto</button>
+        </div>
+        <div class="video-container">
+            <video width="100%" controls id="video-human-3">
+                <source src="humano-video3.mp4" type="video/mp4">
+            </video>
+            <button onclick="registerInterest('human-3')">Me interesa este producto</button>
+        </div>
+    </div>
+
+    <h2>Encuesta Final</h2>
+    <form id="survey-form">
+        <label>¿Qué tipo de videos te parecieron más atractivos?</label><br>
+        <input type="radio" name="preferred" value="IA"> IA<br>
+        <input type="radio" name="preferred" value="Humano"> Humano<br><br>
+
+        <label>¿Cuál tipo de video transmitió mejor el mensaje?</label><br>
+        <input type="radio" name="clear_message" value="IA"> IA<br>
+        <input type="radio" name="clear_message" value="Humano"> Humano<br><br>
+
+        <label>Comentarios adicionales:</label><br>
+        <textarea id="additional-comments" rows="4" cols="50"></textarea><br><br>
+
+        <button type="button" onclick="submitSurvey()">Enviar respuestas</button>
+    </form>
+
+    <script>
+        let videoTimes = {};
+        let interestClicks = {};
+
+        document.querySelectorAll('video').forEach(video => {
+            videoTimes[video.id] = 0;
+
+            video.addEventListener('play', () => {
+                video.startTime = Date.now();
+            });
+
+            video.addEventListener('pause', () => {
+                videoTimes[video.id] += (Date.now() - video.startTime) / 1000;
+            });
+
+            video.addEventListener('ended', () => {
+                videoTimes[video.id] += (Date.now() - video.startTime) / 1000;
+            });
+        });
+
+        function registerInterest(videoId) {
+            interestClicks[videoId] = (interestClicks[videoId] || 0) + 1;
+            alert('¡Gracias por tu interés!');
+        }
+
+        function submitSurvey() {
+            const formData = new FormData(document.getElementById('survey-form'));
+            const surveyResults = {
+                preferred: formData.get('preferred'),
+                clear_message: formData.get('clear_message'),
+                comments: document.getElementById('additional-comments').value,
+                videoTimes,
+                interestClicks
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbxd9zSh6xZfaEIoaWMM0l-YfYZ9DW7M51bj-Jh-eoz78uwnGKsV5A6FjW08SQRqyyTd/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(surveyResults)
+            })
+            .then(() => {
+                alert('Respuestas enviadas. ¡Gracias!');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error al enviar los datos.');
+            });
+        }
+
+    </script>
+
+</body>
+</html>
