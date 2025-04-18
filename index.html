@@ -101,6 +101,29 @@
         input[type="radio"] {
             margin-right: 8px;
         }
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #6c2f9e;
+            color: #fff;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 16px;
+            display: none;
+            animation: fadein 0.5s, fadeout 0.5s 3.5s;
+        }
+        @keyframes fadein {
+            from {opacity: 0; bottom: 0;}
+            to {opacity: 1; bottom: 30px;}
+        }
+        @keyframes fadeout {
+            from {opacity: 1; bottom: 30px;}
+            to {opacity: 0; bottom: 0;}
+        }
     </style>
 </head>
 <body>
@@ -190,6 +213,8 @@
         </form>
     </div>
 
+    <div id="toast"></div>
+
     <script>
         let videoTimes = {};
         let interestClicks = {};
@@ -210,9 +235,18 @@
             });
         });
 
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 4000);
+        }
+
         function registerInterest(videoId) {
             interestClicks[videoId] = (interestClicks[videoId] || 0) + 1;
-            alert('¡Gracias por tu interés!');
+            showToast('👍 ¡Gracias por tu interés!');
         }
 
         function submitSurvey() {
@@ -237,11 +271,21 @@
                 body: JSON.stringify(surveyResults)
             })
             .then(() => {
-                alert('Respuestas enviadas. ¡Gracias!');
+                showToast('🎉 Respuestas enviadas. ¡Gracias por participar!');
+                document.getElementById('survey-form').reset();
+                document.getElementById('participant-name').value = '';
+                document.getElementById('participant-age').value = '';
+                document.getElementById('participant-profession').value = '';
+                document.getElementById('additional-comments').value = '';
+                videoTimes = {};
+                interestClicks = {};
+                document.querySelectorAll('video').forEach(video => {
+                    videoTimes[video.id] = 0;
+                });
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert('Error al enviar los datos.');
+                showToast('⚠️ Error al enviar los datos.');
             });
         }
     </script>
