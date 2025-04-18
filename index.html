@@ -5,74 +5,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluación de Videos - IA vs Humano</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
-        .video-container { margin-bottom: 30px; }
-        button { margin-top: 10px; }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #e8d4f4;
+            color: #2b2b2b;
+        }
+        header {
+            background: linear-gradient(90deg, #c084f5 0%, #a77ff2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        header img {
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .title-group {
+            display: flex;
+            align-items: center;
+        }
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+        h2 {
+            color: #6c2f9e;
+            margin-top: 40px;
+        }
+        .instructions {
+            background: #ffffffcc;
+            border-left: 4px solid #9b59b6;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .video-container {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        video {
+            width: 100%;
+            border-radius: 8px;
+        }
+        button {
+            margin-top: 10px;
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+        button:hover {
+            background-color: #833baf;
+            transform: scale(1.05);
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="radio"] {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Evaluación de Videos - IA vs Humano</h1>
+    <header>
+        <div class="title-group">
+            <img src="content/larry.png" alt="Logo Personal">
+            <h1>Evaluación de Videos - IA vs Humano</h1>
+        </div>
+    </header>
 
-    <div id="videos">
-        <!-- Videos IA -->
+    <div class="container">
+        <div class="instructions">
+            <p><strong>Bienvenido/a 👋</strong></p>
+            <p>Gracias por participar en esta encuesta. A continuación, verás una serie de videos generados por inteligencia artificial y por humanos. Luego, se te pedirá que compartas tu percepción general y algunos comentarios sobre ellos.</p>
+            <p>Tu opinión es muy valiosa para este proyecto de tesis sobre automatización de contenido audiovisual en e-commerce.</p>
+            <p><em>¡Gracias por tu tiempo y apoyo!</em> 💜</p>
+        </div>
+
         <h2>Videos generados por IA</h2>
-        <div class="video-container">
-            <video width="100%" controls id="video-ia-1">
-                <source src="ia-video1.mp4" type="video/mp4">
-            </video>
-            <button onclick="registerInterest('ia-1')">Me interesa este producto</button>
-        </div>
-        <div class="video-container">
-            <video width="100%" controls id="video-ia-2">
-                <source src="ia-video2.mp4" type="video/mp4">
-            </video>
-            <button onclick="registerInterest('ia-2')">Me interesa este producto</button>
-        </div>
-        <div class="video-container">
-            <video width="100%" controls id="video-ia-3">
-                <source src="ia-video3.mp4" type="video/mp4">
-            </video>
-            <button onclick="registerInterest('ia-3')">Me interesa este producto</button>
+        <div class="video-grid">
+            <div class="video-container">
+                <video controls id="video-ia-1">
+                    <source src="content/ia-video1.mp4" type="video/mp4">
+                </video>
+                <button onclick="registerInterest('ia-1')">Me interesa este producto</button>
+            </div>
+            <div class="video-container">
+                <video controls id="video-ia-2">
+                    <source src="content/ia-video2.mp4" type="video/mp4">
+                </video>
+                <button onclick="registerInterest('ia-2')">Me interesa este producto</button>
+            </div>
+            <div class="video-container">
+                <video controls id="video-ia-3">
+                    <source src="content/ia-video3.mp4" type="video/mp4">
+                </video>
+                <button onclick="registerInterest('ia-3')">Me interesa este producto</button>
+            </div>
         </div>
 
-        <!-- Videos Humanos -->
         <h2>Videos generados por Humanos</h2>
-        <div class="video-container">
-            <video width="100%" controls id="video-human-1">
-                <source src="humano-video1.mp4" type="video/mp4">
-            </video>
-            <button onclick="registerInterest('human-1')">Me interesa este producto</button>
+        <div class="video-grid">
+            <div class="video-container">
+                <video controls id="video-human-1">
+                    <source src="humano-video1.mp4" type="video/mp4">
+                </video>
+                <button onclick="registerInterest('human-1')">Me interesa este producto</button>
+            </div>
+            <div class="video-container">
+                <video controls id="video-human-2">
+                    <source src="humano-video2.mp4" type="video/mp4">
+                </video>
+                <button onclick="registerInterest('human-2')">Me interesa este producto</button>
+            </div>
+            <div class="video-container">
+                <video controls id="video-human-3">
+                    <source src="humano-video3.mp4" type="video/mp4">
+                </video>
+                <button onclick="registerInterest('human-3')">Me interesa este producto</button>
+            </div>
         </div>
-        <div class="video-container">
-            <video width="100%" controls id="video-human-2">
-                <source src="humano-video2.mp4" type="video/mp4">
-            </video>
-            <button onclick="registerInterest('human-2')">Me interesa este producto</button>
-        </div>
-        <div class="video-container">
-            <video width="100%" controls id="video-human-3">
-                <source src="humano-video3.mp4" type="video/mp4">
-            </video>
-            <button onclick="registerInterest('human-3')">Me interesa este producto</button>
-        </div>
+
+        <h2>Encuesta Final</h2>
+        <form id="survey-form">
+            <p><label>¿Qué tipo de videos te parecieron más atractivos?</label></p>
+            <p><input type="radio" name="preferred" value="IA"> IA<br>
+            <input type="radio" name="preferred" value="Humano"> Humano</p>
+
+            <p><label>¿Cuál tipo de video transmitió mejor el mensaje?</label></p>
+            <p><input type="radio" name="clear_message" value="IA"> IA<br>
+            <input type="radio" name="clear_message" value="Humano"> Humano</p>
+
+            <p><label>Comentarios adicionales:</label><br>
+            <textarea id="additional-comments" rows="4"></textarea></p>
+
+            <button type="button" onclick="submitSurvey()">Enviar respuestas</button>
+        </form>
     </div>
-
-    <h2>Encuesta Final</h2>
-    <form id="survey-form">
-        <label>¿Qué tipo de videos te parecieron más atractivos?</label><br>
-        <input type="radio" name="preferred" value="IA"> IA<br>
-        <input type="radio" name="preferred" value="Humano"> Humano<br><br>
-
-        <label>¿Cuál tipo de video transmitió mejor el mensaje?</label><br>
-        <input type="radio" name="clear_message" value="IA"> IA<br>
-        <input type="radio" name="clear_message" value="Humano"> Humano<br><br>
-
-        <label>Comentarios adicionales:</label><br>
-        <textarea id="additional-comments" rows="4" cols="50"></textarea><br><br>
-
-        <button type="button" onclick="submitSurvey()">Enviar respuestas</button>
-    </form>
 
     <script>
         let videoTimes = {};
@@ -125,7 +231,6 @@
                 alert('Error al enviar los datos.');
             });
         }
-
     </script>
 
 </body>
