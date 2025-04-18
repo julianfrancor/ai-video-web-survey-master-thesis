@@ -87,12 +87,13 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             margin-top: 30px;
         }
-        textarea {
+        textarea, input[type="text"], input[type="number"] {
             width: 100%;
             padding: 10px;
             border-radius: 4px;
             border: 1px solid #ccc;
-            resize: vertical;
+            margin-top: 5px;
+            margin-bottom: 15px;
         }
         label {
             font-weight: bold;
@@ -165,6 +166,15 @@
 
         <h2>Encuesta Final</h2>
         <form id="survey-form">
+            <p><label>Tu nombre:</label><br>
+            <input type="text" id="participant-name" placeholder="Escribe tu nombre..."></p>
+
+            <p><label>Edad:</label><br>
+            <input type="number" id="participant-age" placeholder="Ej: 28"></p>
+
+            <p><label>¿Trabajas en el área de marketing o contenidos?</label><br>
+            <input type="text" id="participant-profession" placeholder="Ej: Sí, soy community manager"></p>
+
             <p><label>¿Qué tipo de videos te parecieron más atractivos?</label></p>
             <p><input type="radio" name="preferred" value="IA"> IA<br>
             <input type="radio" name="preferred" value="Humano"> Humano</p>
@@ -208,6 +218,9 @@
         function submitSurvey() {
             const formData = new FormData(document.getElementById('survey-form'));
             const surveyResults = {
+                name: document.getElementById('participant-name').value,
+                age: document.getElementById('participant-age').value,
+                profession: document.getElementById('participant-profession').value,
                 preferred: formData.get('preferred'),
                 clear_message: formData.get('clear_message'),
                 comments: document.getElementById('additional-comments').value,
