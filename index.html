@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <title>Evaluación de Videos - IA vs Humano</title>
     <style>
         * {
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             background: #e8d4f4;
@@ -97,6 +98,7 @@
         }
         label {
             font-weight: bold;
+            color: #333;
         }
         input[type="radio"] {
             margin-right: 8px;
@@ -137,6 +139,7 @@
         .section h3 {
             color: #6c2f9e;
             margin-top: 0;
+            background: #f5eafb;
         }
     </style>
 </head>
@@ -216,7 +219,7 @@
                     <input type="number" id="participant-age" placeholder="Ej: 28"></p>
         
                     <p><label>¿Trabajas en el área de marketing o contenidos?</label><br>
-                    <input type="text" id="participant-profession" placeholder="Ej: Sí, soy community manager"></p>\
+                    <input type="text" id="participant-profession" placeholder="Ej: Sí, soy community manager"></p>
               </div>
 
 
@@ -286,8 +289,13 @@
                 <input type="radio" name="future_content" value="Depende"> Depende<br>
               </div>
 
+              
               <div class="section">
                 <h3>Valoración en Escala (Likert 1-5)</h3>
+                <h3>Valoración en Escala (Likert 1-5)</h3>
+                <p style="font-style: italic; margin-bottom: 20px; color: #555;">Por favor responde según tu grado de acuerdo con cada afirmación. 
+                <strong>1</strong> significa “Muy en desacuerdo” y <strong>5</strong> significa “Muy de acuerdo”.</p>
+
                 <p><label>Los videos generados con IA se ven profesionales</label><br></p>
                 <p><input type="radio" name="likert_profesional" value="1"> 1
                 <input type="radio" name="likert_profesional" value="2"> 2
@@ -325,81 +333,108 @@
 
     <div id="toast"></div>
 
-    <script>
-        let videoTimes = {};
-        let interestClicks = {};
+    
+<script>
+    let videoTimes = {};
+    let interestClicks = {};
 
-        document.querySelectorAll('video').forEach(video => {
-            videoTimes[video.id] = 0;
+    document.querySelectorAll('video').forEach(video => {
+        videoTimes[video.id] = 0;
+        video.addEventListener('play', () => { video.startTime = Date.now(); });
+        video.addEventListener('pause', () => {
+            videoTimes[video.id] += (Date.now() - video.startTime) / 1000;
+        });
+        video.addEventListener('ended', () => {
+            videoTimes[video.id] += (Date.now() - video.startTime) / 1000;
+        });
+    });
 
-            video.addEventListener('play', () => {
-                video.startTime = Date.now();
-            });
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    }
 
-            video.addEventListener('pause', () => {
-                videoTimes[video.id] += (Date.now() - video.startTime) / 1000;
-            });
+    function registerInterest(videoId) {
+        interestClicks[videoId] = (interestClicks[videoId] || 0) + 1;
+        showToast('👍 ¡Gracias por tu interés!');
+    }
 
-            video.addEventListener('ended', () => {
-                videoTimes[video.id] += (Date.now() - video.startTime) / 1000;
-            });
+    function getLikert(name) {
+        const value = document.querySelector(`input[name='${name}']:checked`);
+        return value ? value.value : '';
+    }
+
+    function getRadioValue(name) {
+        const value = document.querySelector(`input[name='${name}']:checked`);
+        return value ? value.value : '';
+    }
+
+    function getCheckboxValues(name) {
+        return Array.from(document.querySelectorAll(`input[name='${name}']:checked`)).map(cb => cb.value);
+    }
+
+    function submitSurvey() {
+        const form = document.getElementById('survey-form');
+        const formData = new FormData(form);
+
+        const name = document.getElementById('participant-name').value.trim();
+        const age = document.getElementById('participant-age').value.trim();
+        const profession = document.getElementById('participant-profession').value.trim();
+        const comments = document.getElementById('additional-comments').value.trim();
+        const feedback = document.getElementById('video_feedback')?.value.trim() || '';
+
+        const preferred = getRadioValue('preferred');
+        const clearMessage = getRadioValue('clear_message');
+
+        // Validación básica
+        if (!name || !age || !preferred || !clearMessage) {
+            showToast('Por favor completa tu nombre, edad y selecciona las opciones principales.');
+            return;
+        }
+
+        const surveyResults = {
+            name,
+            age,
+            profession,
+            preferred,
+            clear_message: clearMessage,
+            awareness_ia: getRadioValue('awareness_ia'),
+            impression: getCheckboxValues('impression'),
+            visual_quality: getRadioValue('visual_quality'),
+            content_quality: getRadioValue('content_quality'),
+            trust_effect: getRadioValue('trust_effect'),
+            ethical_view: getRadioValue('ethical_view'),
+            motivation: getRadioValue('motivation'),
+            video_feedback: feedback,
+            future_content: getRadioValue('future_content'),
+            likert_profesional: getLikert('likert_profesional'),
+            likert_mensaje_claro: getLikert('likert_mensaje_claro'),
+            likert_confianza: getLikert('likert_confianza'),
+            likert_uso_ia: getLikert('likert_uso_ia'),
+            comments,
+            videoTimes,
+            interestClicks
+        };
+
+        showToast('🎉 Respuestas enviadas. ¡Gracias por participar!');
+
+        fetch('https://script.google.com/macros/s/AKfycbxd9zSh6xZfaEIoaWMM0l-YfYZ9DW7M51bj-Jh-eoz78uwnGKsV5A6FjW08SQRqyyTd/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(surveyResults)
         });
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 4000);
-        }
-
-        function registerInterest(videoId) {
-            interestClicks[videoId] = (interestClicks[videoId] || 0) + 1;
-            showToast('👍 ¡Gracias por tu interés!');
-        }
-
-        function submitSurvey() {
-            const formData = new FormData(document.getElementById('survey-form'));
-            const surveyResults = {
-                name: document.getElementById('participant-name').value,
-                age: document.getElementById('participant-age').value,
-                profession: document.getElementById('participant-profession').value,
-                preferred: formData.get('preferred'),
-                clear_message: formData.get('clear_message'),
-                comments: document.getElementById('additional-comments').value,
-                videoTimes,
-                interestClicks
-            };
-
-            // Mostrar mensaje inmediatamente
-            showToast('🎉 Respuestas enviadas. ¡Gracias por participar!');
-
-            // Enviar datos sin esperar confirmación
-            fetch('https://script.google.com/macros/s/AKfycbxd9zSh6xZfaEIoaWMM0l-YfYZ9DW7M51bj-Jh-eoz78uwnGKsV5A6FjW08SQRqyyTd/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(surveyResults)
-            });
-
-            // Limpiar formulario
-            document.getElementById('survey-form').reset();
-            document.getElementById('participant-name').value = '';
-            document.getElementById('participant-age').value = '';
-            document.getElementById('participant-profession').value = '';
-            document.getElementById('additional-comments').value = '';
-
-            // Reiniciar datos
-            videoTimes = {};
-            interestClicks = {};
-            document.querySelectorAll('video').forEach(video => {
-                videoTimes[video.id] = 0;
-            });
-        }
-    </script>
+        form.reset();
+        videoTimes = {};
+        interestClicks = {};
+        document.querySelectorAll('video').forEach(video => {
+            videoTimes[video.id] = 0;
+        });
+    }
+</script>
 
 </body>
 </html>
