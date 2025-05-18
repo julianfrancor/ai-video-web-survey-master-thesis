@@ -193,10 +193,18 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         z-index: 1000;
         font-size: 16px;
-        display: none;
+        display: none; /* <- solo esta línea */
         max-width: 90%;
         align-items: center;
         gap: 12px;
+        }
+        .toast-general {
+        display: none;
+        justify-content: center;
+        }
+        .toast-final {
+        display: none;
+        display: flex;
         animation: fadein 0.5s, fadeout 0.5s 4.5s;
         }
         .toast-image {
@@ -310,13 +318,13 @@
         </div>
         
         <!-- TOAST CON IMAGEN Y MENSAJE PERSONALIZADO -->
-        <div id="toast" class="toast">
+        <div id="final-toast" class="toast toast-final">
             <img src="content/larry.png" alt="Foto de perfil" class="toast-image">
             <div>
-                <div class="toast-message"><strong>🎉 ¡Respuestas enviadas!</strong></div>
-                <div class="toast-sub">Muchas gracias por tu apoyo en esta investigación 💜</div>
+              <div class="toast-message"><strong>🎉 ¡Respuestas enviadas!</strong></div>
+              <div class="toast-sub">Muchas gracias por tu apoyo en esta investigación 💜</div>
             </div>
-        </div>
+          </div>
 
         <h1>Encuesta sobre videos de productos generados con IA</h1>
         <form id="survey-form">
@@ -448,7 +456,10 @@
         </form>
     </div>
 
-    <div id="toast"></div>
+    <!-- TOAST PEQUEÑO GENERAL -->
+    <div id="toast" class="toast toast-general">
+        <div class="toast-message">Mensaje</div>
+    </div>
 
 <script>
     let videoTimes = {};
@@ -467,12 +478,12 @@
 
     function showToast(message) {
         const toast = document.getElementById('toast');
-        toast.style.display = 'flex';
         const toastText = toast.querySelector('.toast-message');
-        if (toastText) toastText.textContent = message;
+        toastText.textContent = message;
+        toast.style.display = 'flex';
         setTimeout(() => {
             toast.style.display = 'none';
-        }, 5000);
+        }, 4000);
     }
 
     function registerInterest(videoId) {
@@ -622,6 +633,13 @@
         });
 
         showToast('🎉 ¡Respuestas enviadas!');
+
+        // Mostrar mensaje final en lugar del toast genérico
+        const finalToast = document.getElementById('final-toast');
+        finalToast.style.display = 'flex';
+        setTimeout(() => {
+            finalToast.style.display = 'none';
+        }, 5000);
 
         // Reset de formulario y variables
         form.reset();
