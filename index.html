@@ -570,7 +570,6 @@
         if (label) label.textContent = `Completado: ${percent}%`;
     }
 
-
     function submitSurvey() {
         const form = document.getElementById('survey-form');
         const formData = new FormData(form);
@@ -584,9 +583,9 @@
         const preferred = getRadioValue('preferred');
         const clearMessage = getRadioValue('clear_message');
 
-        // Validación básica
-        if (!name || !age || !preferred || !clearMessage) {
-            showToast('Por favor completa tu nombre, edad y selecciona las opciones principales.');
+        // Validación básica mejorada
+        if (!name || !age || isNaN(age) || age <= 0 || !preferred || !clearMessage) {
+            showToast('Por favor completa tu nombre, una edad válida y selecciona las opciones principales.');
             return;
         }
 
@@ -616,7 +615,11 @@
             videoTimes,
             interestClicks
         };
-        
+
+        // Deshabilitar botón de envío para evitar dobles clics
+        const submitBtn = document.querySelector('button[onclick="submitSurvey()"]');
+        submitBtn.disabled = true;
+
         fetch('https://script.google.com/macros/s/AKfycbzWSRXX0xsjev0d7zju_ndKHypM_EMwS-ruDLGAaIKuRaBrcL6x392UH92lcxCmbZez/exec', {
             method: 'POST',
             mode: 'no-cors',
@@ -624,14 +627,15 @@
             body: JSON.stringify(surveyResults)
         });
 
-        // Mostrar mensaje final en lugar del toast genérico
+        // Mostrar mensaje final
         const finalToast = document.getElementById('final-toast');
         finalToast.style.display = 'flex';
         setTimeout(() => {
             finalToast.style.display = 'none';
+            submitBtn.disabled = false; // Rehabilitar botón tras mensaje
         }, 5000);
 
-        // Reset de formulario y variables
+        // Reset
         form.reset();
         videoTimes = {};
         interestClicks = {};
