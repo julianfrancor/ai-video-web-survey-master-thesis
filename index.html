@@ -211,7 +211,11 @@
             <div style="background-color: #ddd; height: 8px;">
             <div id="progress-bar" style="height: 100%; width: 0%; background: linear-gradient(to right, #a77ff2, #c084f5); transition: width 0.3s;"></div>
             </div>
+            <div id="progress-label" style="text-align: center; font-size: 12px; padding: 4px 0; background: rgba(255, 255, 255, 0.8); color: #6c2f9e; font-weight: 600;">
+            Completado: 0%
+            </div>
         </div>
+  
         
         <!-- TOAST CON IMAGEN Y MENSAJE PERSONALIZADO -->
         <div id="toast" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background-color: #6c2f9e; color: #fff; padding: 16px 24px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000; font-size: 16px; display: none; animation: fadein 0.5s, fadeout 0.5s 4.5s; max-width: 90%; display: flex; align-items: center; gap: 12px;">
@@ -442,22 +446,28 @@
         let filledCount = 0;
 
         totalFields.forEach(name => {
-            const el = document.querySelector(`[name="${name}"]`) || document.getElementById(name);
-            if (el) {
-                if (el.type === 'radio') {
-                    if (document.querySelector(`input[name="${name}"]:checked`)) {
-                        filledCount++;
-                    }
-                } else if (el.value.trim() !== '') {
+            const radioGroup = document.querySelectorAll(`input[name="${name}"]`);
+            if (radioGroup.length > 0) {
+                if (document.querySelector(`input[name="${name}"]:checked`)) {
+                    filledCount++;
+                }
+            } else {
+                const field = document.getElementById(name);
+                if (field && field.value.trim() !== '') {
                     filledCount++;
                 }
             }
         });
 
         const percent = Math.round((filledCount / totalFields.length) * 100);
+
         const bar = document.getElementById('progress-bar');
+        const label = document.getElementById('progress-label');
+
         if (bar) bar.style.width = percent + '%';
+        if (label) label.textContent = `Completado: ${percent}%`;
     }
+
 
     function submitSurvey() {
         const form = document.getElementById('survey-form');
