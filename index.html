@@ -189,7 +189,7 @@
             </div>
         </div>
 
-        <h2>Encuesta Final</h2>
+        <h1>Encuesta sobre videos de productos generados con IA</h1>
         <form id="survey-form">
             <p><label>Tu nombre:</label><br>
             <input type="text" id="participant-name" placeholder="Escribe tu nombre..."></p>
@@ -200,6 +200,7 @@
             <p><label>¿Trabajas en el área de marketing o contenidos?</label><br>
             <input type="text" id="participant-profession" placeholder="Ej: Sí, soy community manager"></p>
 
+            <h3>Comparación entre videos</h3>
             <p><label>¿Qué tipo de videos te parecieron más atractivos?</label></p>
             <p><input type="radio" name="preferred" value="IA"> IA<br>
             <input type="radio" name="preferred" value="Humano"> Humano</p>
@@ -208,8 +209,91 @@
             <p><input type="radio" name="clear_message" value="IA"> IA<br>
             <input type="radio" name="clear_message" value="Humano"> Humano</p>
 
+            <h3>Percepción sobre los videos con IA</h3>
+            <label>¿Sabías que eran generados por IA?</label><br>
+            <input type="radio" name="awareness_ia" value="Sí, lo supe desde el principio"> Sí<br>
+            <input type="radio" name="awareness_ia" value="Me di cuenta después"> Me di cuenta después<br>
+            <input type="radio" name="awareness_ia" value="No, no lo noté"> No lo noté<br>
+            <input type="radio" name="awareness_ia" value="No estoy seguro/a"> No estoy seguro/a<br>
+
+            <label>¿Qué impresión te dejaron los videos? (elige hasta 3)</label><br>
+            <input type="checkbox" name="impression" value="Profesionales"> Profesionales<br>
+            <input type="checkbox" name="impression" value="Artificiales"> Artificiales<br>
+            <input type="checkbox" name="impression" value="Creativos"> Creativos<br>
+            <input type="checkbox" name="impression" value="Interesantes"> Interesantes<br>
+            <input type="checkbox" name="impression" value="Genéricos"> Genéricos<br>
+            <input type="checkbox" name="impression" value="Confusos"> Confusos<br>
+            <input type="checkbox" name="impression" value="Innovadores"> Innovadores<br>
+
+            <label>¿Cómo calificarías la calidad visual?</label><br>
+            <input type="radio" name="visual_quality" value="Excelente"> Excelente<br>
+            <input type="radio" name="visual_quality" value="Buena"> Buena<br>
+            <input type="radio" name="visual_quality" value="Aceptable"> Aceptable<br>
+            <input type="radio" name="visual_quality" value="Mala"> Mala<br>
+
+            <label>¿Y la calidad del contenido?</label><br>
+            <input type="radio" name="content_quality" value="Muy claro y persuasivo"> Muy claro<br>
+            <input type="radio" name="content_quality" value="Claro, pero poco convincente"> Claro pero poco convincente<br>
+            <input type="radio" name="content_quality" value="Poco claro o confuso"> Poco claro<br>
+            <input type="radio" name="content_quality" value="No me pareció relevante"> No relevante<br>
+
+            <label>¿El saber que fueron hechos con IA cambia tu percepción?</label><br>
+            <input type="radio" name="trust_effect" value="Más confianza"> Más confianza<br>
+            <input type="radio" name="trust_effect" value="Desconfianza"> Desconfianza<br>
+            <input type="radio" name="trust_effect" value="No cambia"> No cambia<br>
+            <input type="radio" name="trust_effect" value="No estoy seguro/a"> No seguro<br>
+
+            <label>¿Usar IA en marketing es...?</label><br>
+            <input type="radio" name="ethical_view" value="Innovador y positivo"> Innovador<br>
+            <input type="radio" name="ethical_view" value="Aceptable si se usa con transparencia"> Aceptable<br>
+            <input type="radio" name="ethical_view" value="Poco ético o manipulador"> Poco ético<br>
+            <input type="radio" name="ethical_view" value="Indiferente"> Indiferente<br>
+
+            <label>¿El video te motivó a buscar más información?</label><br>
+            <input type="radio" name="motivation" value="Sí"> Sí<br>
+            <input type="radio" name="motivation" value="No"> No<br>
+            <input type="radio" name="motivation" value="Tal vez"> Tal vez<br>
+
+            <label>¿Qué mejorarías?</label><br>
+            <textarea id="video_feedback"></textarea><br>
+
+            <label>¿Te gustaría ver más contenido generado por IA?</label><br>
+            <input type="radio" name="future_content" value="Sí"> Sí<br>
+            <input type="radio" name="future_content" value="No"> No<br>
+            <input type="radio" name="future_content" value="Depende"> Depende<br>
+
+            <h3>Escala de valoración (1 a 5)</h3>
+            <label>Los videos generados con IA se ven profesionales</label><br>
+            <input type="radio" name="likert_profesional" value="1"> 1
+            <input type="radio" name="likert_profesional" value="2"> 2
+            <input type="radio" name="likert_profesional" value="3"> 3
+            <input type="radio" name="likert_profesional" value="4"> 4
+            <input type="radio" name="likert_profesional" value="5"> 5<br>
+
+            <label>Los mensajes fueron claros</label><br>
+            <input type="radio" name="likert_mensaje_claro" value="1"> 1
+            <input type="radio" name="likert_mensaje_claro" value="2"> 2
+            <input type="radio" name="likert_mensaje_claro" value="3"> 3
+            <input type="radio" name="likert_mensaje_claro" value="4"> 4
+            <input type="radio" name="likert_mensaje_claro" value="5"> 5<br>
+
+            <label>Confiaría en productos con videos hechos por IA</label><br>
+            <input type="radio" name="likert_confianza" value="1"> 1
+            <input type="radio" name="likert_confianza" value="2"> 2
+            <input type="radio" name="likert_confianza" value="3"> 3
+            <input type="radio" name="likert_confianza" value="4"> 4
+            <input type="radio" name="likert_confianza" value="5"> 5<br>
+
+            <label>Me parece atractiva la idea de usar IA en publicidad</label><br>
+            <input type="radio" name="likert_uso_ia" value="1"> 1
+            <input type="radio" name="likert_uso_ia" value="2"> 2
+            <input type="radio" name="likert_uso_ia" value="3"> 3
+            <input type="radio" name="likert_uso_ia" value="4"> 4
+            <input type="radio" name="likert_uso_ia" value="5"> 5<br><br>
+
+
             <p><label>Comentarios adicionales:</label><br>
-            <textarea id="additional-comments" rows="4"></textarea></p>
+                <textarea id="additional-comments" rows="4"></textarea></p>
 
             <button type="button" onclick="submitSurvey()">Enviar respuestas</button>
         </form>
