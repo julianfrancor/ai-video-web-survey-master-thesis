@@ -211,7 +211,16 @@
             <div style="background-color: #ddd; height: 8px;">
             <div id="progress-bar" style="height: 100%; width: 0%; background: linear-gradient(to right, #a77ff2, #c084f5); transition: width 0.3s;"></div>
             </div>
-        </div>      
+        </div>
+        
+        <!-- TOAST CON IMAGEN Y MENSAJE PERSONALIZADO -->
+        <div id="toast" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background-color: #6c2f9e; color: #fff; padding: 16px 24px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000; font-size: 16px; display: none; animation: fadein 0.5s, fadeout 0.5s 4.5s; max-width: 90%; display: flex; align-items: center; gap: 12px;">
+            <img src="content/larry.png" alt="Foto de perfil" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <div>
+            <div class="toast-message"><strong>🎉 ¡Respuestas enviadas!</strong></div>
+            <div style="font-size: 14px;">Muchas gracias por tu apoyo en esta investigación 💜</div>
+            </div>
+        </div>
 
         <h1>Encuesta sobre videos de productos generados con IA</h1>
         <form id="survey-form">
@@ -293,7 +302,7 @@
                 <p><label>¿Te gustaría ver más contenido generado por IA?</label><br>
                     <input type="radio" name="future_content" value="Sí"> Sí<br>
                     <input type="radio" name="future_content" value="No"> No<br>
-                    <input type="radio" name="future_content" value="Depende"> Depende
+                    <input type="radio" name="future_content" value="Depende" onclick="document.getElementById('depende_explanation').focus();">
                 </p>
                 
                 <p id="dependeTextWrapper" style="display:none; margin-top: 10px;">
@@ -345,7 +354,6 @@
 
     <div id="toast"></div>
 
-    
 <script>
     let videoTimes = {};
     let interestClicks = {};
@@ -363,9 +371,12 @@
 
     function showToast(message) {
         const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.style.display = 'block';
-        setTimeout(() => { toast.style.display = 'none'; }, 4000);
+        toast.style.display = 'flex';
+        const toastText = toast.querySelector('.toast-message');
+        if (toastText) toastText.textContent = message;
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 5000);
     }
 
     function registerInterest(videoId) {
@@ -482,6 +493,9 @@
             motivation: getRadioValue('motivation'),
             video_feedback: feedback,
             future_content: getRadioValue('future_content'),
+            depende_explanation: (getRadioValue('future_content') === 'Depende')
+                ? document.getElementById('depende_explanation').value.trim()
+                : '',
             likert_profesional: getLikert('likert_profesional'),
             likert_mensaje_claro: getLikert('likert_mensaje_claro'),
             likert_confianza: getLikert('likert_confianza'),
@@ -507,6 +521,22 @@
             videoTimes[video.id] = 0;
         });
     }
+
+    // Guardar al escribir
+    form.addEventListener('input', () => {
+    localStorage.setItem('encuestaIA', JSON.stringify(Object.fromEntries(new FormData(form))));
+    });
+
+    // Recuperar al cargar
+    const saved = localStorage.getItem('encuestaIA');
+    if (saved) {
+    const data = JSON.parse(saved);
+    Object.entries(data).forEach(([key, value]) => {
+        const input = form.elements[key];
+        if (input) input.value = value;
+    });
+    }
+
 </script>
 
 </body>
