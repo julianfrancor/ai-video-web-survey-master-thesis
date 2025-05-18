@@ -615,7 +615,7 @@
             motivation: getRadioValue('motivation'),
             video_feedback: feedback,
             future_content: getRadioValue('future_content'),
-            depende_explanation: (getRadioValue('future_content') === 'Depende')
+            future_content_detail: (getRadioValue('future_content') === 'Depende')
                 ? document.getElementById('depende_explanation').value.trim()
                 : '',
             likert_profesional: getLikert('likert_profesional'),
