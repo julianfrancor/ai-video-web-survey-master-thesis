@@ -206,12 +206,12 @@
             </div>
         </div>
 
-        <div id="progress-wrapper" style="margin: 20px 0;">
-            <label>Progreso del formulario:</label>
-            <div style="background-color: #ddd; border-radius: 10px; overflow: hidden;">
-              <div id="progress-bar" style="height: 20px; width: 0%; background: linear-gradient(to right, #a77ff2, #c084f5); transition: width 0.3s;"></div>
+        <!-- BARRA DE PROGRESO FLOTANTE -->
+        <div id="progress-wrapper" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;">
+            <div style="background-color: #ddd; height: 8px;">
+            <div id="progress-bar" style="height: 100%; width: 0%; background: linear-gradient(to right, #a77ff2, #c084f5); transition: width 0.3s;"></div>
             </div>
-          </div>          
+        </div>      
 
         <h1>Encuesta sobre videos de productos generados con IA</h1>
         <form id="survey-form">
@@ -410,10 +410,43 @@
             });
         });
 
-        document.getElementById('survey-form').addEventListener('input', updateProgressBar);
-        document.getElementById('survey-form').addEventListener('change', updateProgressBar);
+        // Actualizar barra de progreso
+        const form = document.getElementById('survey-form');
+        if (form) {
+            form.addEventListener('input', updateProgressBar);
+            form.addEventListener('change', updateProgressBar);
+        }
 
     });
+
+    function updateProgressBar() {
+        const totalFields = [
+            'participant-name', 'participant-age', 'participant-profession',
+            'preferred', 'clear_message', 'awareness_ia', 'visual_quality',
+            'content_quality', 'trust_effect', 'ethical_view', 'motivation',
+            'future_content', 'likert_profesional', 'likert_mensaje_claro',
+            'likert_confianza', 'likert_uso_ia'
+        ];
+
+        let filledCount = 0;
+
+        totalFields.forEach(name => {
+            const el = document.querySelector(`[name="${name}"]`) || document.getElementById(name);
+            if (el) {
+                if (el.type === 'radio') {
+                    if (document.querySelector(`input[name="${name}"]:checked`)) {
+                        filledCount++;
+                    }
+                } else if (el.value.trim() !== '') {
+                    filledCount++;
+                }
+            }
+        });
+
+        const percent = Math.round((filledCount / totalFields.length) * 100);
+        const bar = document.getElementById('progress-bar');
+        if (bar) bar.style.width = percent + '%';
+    }
 
     function submitSurvey() {
         const form = document.getElementById('survey-form');
@@ -474,36 +507,6 @@
             videoTimes[video.id] = 0;
         });
     }
-
-    function updateProgressBar() {
-    const totalFields = [
-        'participant-name', 'participant-age', 'participant-profession',
-        'preferred', 'clear_message', 'awareness_ia', 'visual_quality',
-        'content_quality', 'trust_effect', 'ethical_view', 'motivation',
-        'future_content', 'likert_profesional', 'likert_mensaje_claro',
-        'likert_confianza', 'likert_uso_ia'
-    ];
-
-    let filledCount = 0;
-
-    totalFields.forEach(name => {
-        const el = document.querySelector(`[name="${name}"]`) || document.getElementById(name);
-        if (el) {
-            if (el.type === 'radio') {
-                if (document.querySelector(`input[name="${name}"]:checked`)) {
-                    filledCount++;
-                }
-            } else if (el.value.trim() !== '') {
-                filledCount++;
-            }
-        }
-    });
-
-    const percent = Math.round((filledCount / totalFields.length) * 100);
-    const bar = document.getElementById('progress-bar');
-    if (bar) bar.style.width = percent + '%';
-}
-
 </script>
 
 </body>
