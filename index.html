@@ -6,140 +6,236 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <title>Evaluación de Videos - IA vs Humano</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #e8d4f4;
-            color: #2b2b2b;
-        }
-        header {
-            background: linear-gradient(90deg, #c084f5 0%, #a77ff2 100%);
-            color: white;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        header img {
-            height: 60px;
-            border-radius: 50%;
-            margin-right: 15px;
-        }
-        .title-group {
-            display: flex;
-            align-items: center;
-        }
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 20px;
-        }
-        h2 {
-            color: #6c2f9e;
-            margin-top: 40px;
-        }
-        .instructions {
-            background: #ffffffcc;
-            border-left: 4px solid #9b59b6;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .video-container {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        video {
-            width: 100%;
-            border-radius: 8px;
-        }
-        button {
-            margin-top: 10px;
-            background-color: #9b59b6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s;
-        }
-        button:hover {
-            background-color: #833baf;
-            transform: scale(1.05);
-        }
-        form {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-top: 30px;
-        }
-        textarea, input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            margin-top: 5px;
-            margin-bottom: 15px;
-        }
-        label {
-            font-weight: bold;
-            color: #333;
-        }
-        input[type="radio"] {
-            margin-right: 8px;
-        }
-        #toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #6c2f9e;
-            color: #fff;
-            padding: 16px 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            font-size: 16px;
-            display: none;
-            animation: fadein 0.5s, fadeout 0.5s 3.5s;
-        }
-        @keyframes fadein {
-            from {opacity: 0; bottom: 0;}
-            to {opacity: 1; bottom: 30px;}
-        }
-        @keyframes fadeout {
-            from {opacity: 1; bottom: 30px;}
-            to {opacity: 0; bottom: 0;}
+        /* ------------------ Variables ------------------ */
+        :root {
+        --main-purple: #6c2f9e;
+        --light-purple: #f9f2fc;
+        --accent-purple: #b57bd3;
+        --gradient-start: #a77ff2;
+        --gradient-end: #c084f5;
+        --header-bg: linear-gradient(90deg, var(--gradient-end) 0%, var(--gradient-start) 100%);
+        --text-dark: #2b2b2b;
+        --text-muted: #333;
+        --background-light: #ffffffcc;
         }
 
+        /* ------------------ Base ------------------ */
+        * {
+        box-sizing: border-box;
+        }
+        body {
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #e8d4f4;
+        color: var(--text-dark);
+        }
+
+        /* ------------------ Header ------------------ */
+        header {
+        background: var(--header-bg);
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        }
+        header img {
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+        }
+        .title-group {
+        display: flex;
+        align-items: center;
+        }
+
+        /* ------------------ Layout ------------------ */
+        .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 20px;
+        }
+
+        /* ------------------ Typography ------------------ */
+        h2 {
+        color: var(--main-purple);
+        margin-top: 40px;
+        }
+        label {
+        font-weight: bold;
+        color: var(--text-muted);
+        }
+
+        /* ------------------ Sections ------------------ */
+        .instructions {
+        background: var(--background-light);
+        border-left: 4px solid var(--main-purple);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        }
         .section {
-            background: #f9f2fc;
-            border-left: 5px solid #b57bd3;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 40px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        background: var(--light-purple);
+        border-left: 5px solid var(--accent-purple);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 40px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
         .section h3 {
-            color: #6c2f9e;
-            margin-top: 0;
-            background: #f5eafb;
+        color: var(--main-purple);
+        margin-top: 0;
+        background: #f5eafb;
+        padding: 4px;
+        }
+
+        /* ------------------ Videos ------------------ */
+        .video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        }
+        .video-container {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        text-align: center;
+        }
+        video {
+        width: 100%;
+        border-radius: 8px;
+        }
+
+        /* ------------------ Forms ------------------ */
+        form {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin-top: 30px;
+        }
+        textarea,
+        input[type="text"],
+        input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        }
+        input[type="radio"],
+        input[type="checkbox"] {
+        cursor: pointer;
+        margin-right: 8px;
+        }
+        button {
+        margin-top: 10px;
+        background-color: var(--main-purple);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s;
+        }
+        button:hover {
+        background-color: #833baf;
+        transform: scale(1.05);
+        }
+        button:focus {
+        outline: 2px solid var(--main-purple);
+        outline-offset: 2px;
+        }
+
+        /* ------------------ Barra de Progreso ------------------ */
+        .progress-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        }
+        .progress-track {
+        background-color: #ddd;
+        height: 8px;
+        }
+        .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+        transition: width 0.3s;
+        }
+        .progress-label {
+        text-align: center;
+        font-size: 12px;
+        padding: 4px 0;
+        background: rgba(255, 255, 255, 0.8);
+        color: var(--main-purple);
+        font-weight: 600;
+        }
+
+        /* ------------------ Toast ------------------ */
+        .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--main-purple);
+        color: #fff;
+        padding: 16px 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+        font-size: 16px;
+        display: none;
+        max-width: 90%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: fadein 0.5s, fadeout 0.5s 4.5s;
+        }
+        .toast-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        }
+        .toast-sub {
+        font-size: 14px;
+        }
+
+        /* ------------------ Animaciones ------------------ */
+        @keyframes fadein {
+        from {opacity: 0; bottom: 0;}
+        to {opacity: 1; bottom: 30px;}
+        }
+        @keyframes fadeout {
+        from {opacity: 1; bottom: 30px;}
+        to {opacity: 0; bottom: 0;}
+        }
+
+        /* ------------------ Responsive ------------------ */
+        @media (max-width: 600px) {
+        .container {
+            padding: 10px;
+        }
+        .instructions, form, .section {
+            padding: 15px;
+        }
+        button {
+            width: 100%;
+        }
+        .toast {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
         }
     </style>
 </head>
@@ -207,22 +303,19 @@
         </div>
 
         <!-- BARRA DE PROGRESO FLOTANTE -->
-        <div id="progress-wrapper" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;">
-            <div style="background-color: #ddd; height: 8px;">
-            <div id="progress-bar" style="height: 100%; width: 0%; background: linear-gradient(to right, #a77ff2, #c084f5); transition: width 0.3s;"></div>
+        <div id="progress-wrapper" class="progress-wrapper">
+            <div class="progress-track">
+            <div id="progress-bar" class="progress-bar"></div>
             </div>
-            <div id="progress-label" style="text-align: center; font-size: 12px; padding: 4px 0; background: rgba(255, 255, 255, 0.8); color: #6c2f9e; font-weight: 600;">
-            Completado: 0%
-            </div>
+            <div id="progress-label" class="progress-label">Completado: 0%</div>
         </div>
-  
         
         <!-- TOAST CON IMAGEN Y MENSAJE PERSONALIZADO -->
-        <div id="toast" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background-color: #6c2f9e; color: #fff; padding: 16px 24px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000; font-size: 16px; display: none; max-width: 90%; align-items: center; gap: 12px;">
-            <img src="content/larry.png" alt="Foto de perfil" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+        <div id="toast" class="toast">
+            <img src="content/larry.png" alt="Foto de perfil" class="toast-image">
             <div>
             <div class="toast-message"><strong>🎉 ¡Respuestas enviadas!</strong></div>
-            <div style="font-size: 14px;">Muchas gracias por tu apoyo en esta investigación 💜</div>
+            <div class="toast-sub">Muchas gracias por tu apoyo en esta investigación 💜</div>
             </div>
         </div>
 
@@ -515,8 +608,13 @@
             interestClicks
         };
 
-        showToast('🎉 Respuestas enviadas. ¡Gracias por participar!');
-
+        fetch('https://script.google.com/macros/s/AKfycbzWSRXX0xsjev0d7zju_ndKHypM_EMwS-ruDLGAaIKuRaBrcL6x392UH92lcxCmbZez/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(surveyResults)
+        });
+        
         fetch('https://script.google.com/macros/s/AKfycbzWSRXX0xsjev0d7zju_ndKHypM_EMwS-ruDLGAaIKuRaBrcL6x392UH92lcxCmbZez/exec', {
             method: 'POST',
             mode: 'no-cors',
@@ -524,6 +622,9 @@
             body: JSON.stringify(surveyResults)
         });
 
+        showToast('🎉 ¡Respuestas enviadas!');
+
+        // Reset de formulario y variables
         form.reset();
         videoTimes = {};
         interestClicks = {};
