@@ -317,7 +317,7 @@
         </div>
         
         <!-- TOAST CON IMAGEN Y MENSAJE PERSONALIZADO -->
-        <div id="final-toast" class="toast toast-final" aria-live="polite">
+        <div id="final-toast" class="toast toast-final" aria-live="polite" role="status">
             <img src="content/larry.png" alt="Foto de perfil" class="toast-image">
             <div>
                 <div class="toast-message"><strong>🎉 ¡Respuestas enviadas!</strong></div>
@@ -456,7 +456,7 @@
     </div>
 
     <!-- TOAST PEQUEÑO GENERAL -->
-    <div id="toast" class="toast toast-general" aria-live="polite">
+    <div id="toast" class="toast toast-general" aria-live="polite" role="status">
         <div class="toast-message">Mensaje</div>
     </div>    
 
@@ -638,6 +638,8 @@
         document.querySelectorAll('video').forEach(video => {
             videoTimes[video.id] = 0;
         });
+
+        localStorage.removeItem('encuestaIA');
     }
 
     // Guardar al escribir
