@@ -407,11 +407,10 @@
                     <input type="radio" name="future_content" value="No"> No<br>
                     <input type="radio" name="future_content" value="Depende" onclick="document.getElementById('depende_explanation').focus();">
                 </p>
-                
                 <p id="dependeTextWrapper" style="display:none; margin-top: 10px;">
                     <label for="depende_explanation">¿De qué depende?</label><br>
                     <textarea id="depende_explanation" rows="3" style="width:100%; border-radius:5px; border:1px solid #ccc; margin-top:8px;"></textarea>
-                </p>
+                </p>                
               </div>
 
               
@@ -518,14 +517,19 @@
             });
         });
 
-        // Mostrar campo de texto si se selecciona "Depende" en future_content
-        const dependeRadio = document.querySelector("input[name='future_content'][value='Depende']");
-        const dependeTextarea = document.getElementById("depende_explanation");
+        // Mostrar/ocultar campo "¿De qué depende?" según opción seleccionada
         document.querySelectorAll("input[name='future_content']").forEach(radio => {
             radio.addEventListener("change", () => {
-                dependeTextarea.style.display = radio.value === 'Depende' && radio.checked ? 'block' : 'none';
+                const dependeWrapper = document.getElementById("dependeTextWrapper");
+                if (radio.value === "Depende" && radio.checked) {
+                    dependeWrapper.style.display = "block";
+                    document.getElementById('depende_explanation').focus();
+                } else {
+                    dependeWrapper.style.display = "none";
+                }
             });
         });
+
 
         // Actualizar barra de progreso
         const form = document.getElementById('survey-form');
