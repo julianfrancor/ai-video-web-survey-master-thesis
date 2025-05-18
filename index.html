@@ -374,8 +374,8 @@
         return Array.from(document.querySelectorAll(`input[name='${name}']:checked`)).map(cb => cb.value);
     }
 
-    // Limitar a 3 checkboxes seleccionados para la pregunta de impresión
     document.addEventListener('DOMContentLoaded', () => {
+        // Limitar a 3 checkboxes seleccionados para la pregunta de impresión
         const maxChecks = 3;
         const checkboxes = document.querySelectorAll("input[name='impression']");
         checkboxes.forEach(checkbox => {
@@ -385,6 +385,15 @@
                     checkbox.checked = false;
                     showToast('Solo puedes seleccionar hasta 3 opciones.');
                 }
+            });
+        });
+
+        // Mostrar campo de texto si se selecciona "Depende" en future_content
+        const dependeRadio = document.querySelector("input[name='future_content'][value='Depende']");
+        const dependeTextarea = document.getElementById("depende_explanation");
+        document.querySelectorAll("input[name='future_content']").forEach(radio => {
+            radio.addEventListener("change", () => {
+                dependeTextarea.style.display = radio.value === 'Depende' && radio.checked ? 'block' : 'none';
             });
         });
     });
