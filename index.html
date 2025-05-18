@@ -374,6 +374,21 @@
         return Array.from(document.querySelectorAll(`input[name='${name}']:checked`)).map(cb => cb.value);
     }
 
+    // Limitar a 3 checkboxes seleccionados para la pregunta de impresión
+    document.addEventListener('DOMContentLoaded', () => {
+        const maxChecks = 3;
+        const checkboxes = document.querySelectorAll("input[name='impression']");
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const checked = Array.from(checkboxes).filter(cb => cb.checked);
+                if (checked.length > maxChecks) {
+                    checkbox.checked = false;
+                    showToast('Solo puedes seleccionar hasta 3 opciones.');
+                }
+            });
+        });
+    });
+
     function submitSurvey() {
         const form = document.getElementById('survey-form');
         const formData = new FormData(form);
