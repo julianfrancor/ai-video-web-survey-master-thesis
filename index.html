@@ -405,12 +405,12 @@
                 <p><label>¿Te gustaría ver más contenido generado por IA?</label><br>
                     <input type="radio" name="future_content" value="Sí"> Sí<br>
                     <input type="radio" name="future_content" value="No"> No<br>
-                    <input type="radio" name="future_content" value="Depende" onclick="document.getElementById('depende_explanation').focus();">
+                    <input type="radio" name="future_content" value="Depende"> Depende<br>
                 </p>
                 <p id="dependeTextWrapper" style="display:none; margin-top: 10px;">
                     <label for="depende_explanation">¿De qué depende?</label><br>
-                    <textarea id="depende_explanation" rows="3" style="width:100%; border-radius:5px; border:1px solid #ccc; margin-top:8px;"></textarea>
-                </p>                
+                    <textarea id="depende_explanation" name="depende_explanation" rows="3" style="width:100%; border-radius:5px; border:1px solid #ccc; margin-top:8px;"></textarea>
+                </p>
               </div>
 
               
@@ -518,9 +518,18 @@
         });
 
         // Mostrar/ocultar campo "¿De qué depende?" según opción seleccionada
-        document.querySelectorAll("input[name='future_content']").forEach(radio => {
+        const futureRadios = document.querySelectorAll("input[name='future_content']");
+        const dependeWrapper = document.getElementById("dependeTextWrapper");
+
+        // Mostrar el campo si ya estaba seleccionado "Depende" al cargar
+        const dependeRadio = document.querySelector("input[name='future_content'][value='Depende']");
+        if (dependeRadio && dependeRadio.checked) {
+            dependeWrapper.style.display = "block";
+        }
+
+        // Escuchar cambios en la selección
+        futureRadios.forEach(radio => {
             radio.addEventListener("change", () => {
-                const dependeWrapper = document.getElementById("dependeTextWrapper");
                 if (radio.value === "Depende" && radio.checked) {
                     dependeWrapper.style.display = "block";
                     document.getElementById('depende_explanation').focus();
@@ -530,14 +539,12 @@
             });
         });
 
-
         // Actualizar barra de progreso
         const form = document.getElementById('survey-form');
         if (form) {
             form.addEventListener('input', updateProgressBar);
             form.addEventListener('change', updateProgressBar);
         }
-
     });
 
     function updateProgressBar() {
