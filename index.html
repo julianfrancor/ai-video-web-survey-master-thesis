@@ -331,125 +331,173 @@
 
             <div class="section">
                 <h3>Datos del Participante</h3>
-                
                 <p><label>Tu nombre:</label><br>
                     <input type="text" id="participant-name" placeholder="Escribe tu nombre..."></p>
         
                     <p><label>Edad:</label><br>
                     <input type="number" id="participant-age" placeholder="Ej: 28"></p>
         
-                    <p><label>¿Trabajas en el área de marketing o contenidos?</label><br>
-                    <input type="text" id="participant-profession" placeholder="Ej: Sí, soy community manager"></p>
+                    <p><label>¿Trabajas en alguna de estas áreas?</label><br>
+                        <input type="checkbox" name="participant-profession" value="Marketing"> Marketing<br>
+                        <input type="checkbox" name="participant-profession" value="Diseno"> Diseño<br>
+                        <input type="checkbox" name="participant-profession" value="Tecnologia"> Tecnología<br>
+                        <input type="checkbox" name="participant-profession" value="Ventas"> Ventas<br>
+                        <input type="checkbox" name="participant-profession" value="Otra"> Otra<br>
+                        <input type="checkbox" name="participant-profession" value="Ninguna"> No trabajas<br>
+                    </p>
+
+                    <p><label>¿Con qué frecuencia compras en línea?</label><br>
+                        <input type="radio" name="buying_frequency" value="Ocasionalmente"> Ocasionalmente<br>
+                        <input type="radio" name="buying_frequency" value="Frecuentemente"> Frecuentemente<br>
+                        <input type="radio" name="buying_frequency" value="Nunca"> Nunca<br>
+                    </p>
+
+                    <p><label>¿Consumes contenido de videos tipo reels en redes sociales?</label><br>
+                        <input type="radio" name="reels" value="Diario"> Sí, todos los días<br>
+                        <input type="radio" name="reels" value="Semanal"> Algunas veces a la semana<br>
+                        <input type="radio" name="reels" value="Rara vez"> Rara vez<br>
+                        <input type="radio" name="reels" value="Nunca"> Nunca<br>
+                    </p>
               </div>
 
 
               <div class="section">
-                <h3>Comparación entre Videos</h3>
-                <p><label>¿Qué tipo de videos te parecieron más atractivos?</label></p>
-                <p><input type="radio" name="preferred" value="IA"> IA<br>
-                <input type="radio" name="preferred" value="Humano"> Humano</p>
-    
-                <p><label>¿Cuál tipo de video transmitió mejor el mensaje?</label></p>
-                <p><input type="radio" name="clear_message" value="IA"> IA<br>
-                <input type="radio" name="clear_message" value="Humano"> Humano</p>
+                <h3>Percepción del Contenido Visto</h3>
+                <p style="font-style: italic; margin-bottom: 20px; color: #555;">Por favor responde según tu grado de acuerdo con cada afirmación. 
+                    <strong>1</strong> significa “Muy en desacuerdo” y <strong>5</strong> significa “Muy de acuerdo”.</p>
+                
+                <p><label>¿El mensaje del video fue claro y fácil de entender?</label></p>
+                <div class="likert-group">
+                    <input type="radio" name="claridad" value="1">1
+                    <input type="radio" name="claridad" value="2">2
+                    <input type="radio" name="claridad" value="3">3
+                    <input type="radio" name="claridad" value="4">4
+                    <input type="radio" name="claridad" value="5">5
+                </div>
+
+                <p><label>El video me ayudó a comprender las características del producto.</label></p>
+                <div class="likert-group">
+                    <input type="radio" name="comprension" value="1">1
+                    <input type="radio" name="comprension" value="2">2
+                    <input type="radio" name="comprension" value="3">3
+                    <input type="radio" name="comprension" value="4">4
+                    <input type="radio" name="comprension" value="5">5
+                </div>
+
+                <p><label>El contenido captó mi atención desde el inicio.</label></p>
+                <div class="likert-group">
+                    <input type="radio" name="atencion" value="1">1
+                    <input type="radio" name="atencion" value="2">2
+                    <input type="radio" name="atencion" value="3">3
+                    <input type="radio" name="atencion" value="4">4
+                    <input type="radio" name="atencion" value="5">5
+                </div>
+
+                <p><label>El video me generó interés en conocer más sobre el producto.</label></p>
+                <div class="likert-group">
+                    <input type="radio" name="interes" value="1">1
+                    <input type="radio" name="interes" value="2">2
+                    <input type="radio" name="interes" value="3">3
+                    <input type="radio" name="interes" value="4">4
+                    <input type="radio" name="interes" value="5">5
+                </div>
+
+                <p><label>Después de ver el video, me sentiría más dispuesto(a) a comprar el producto.</label></p>
+                <div class="likert-group">
+                    <input type="radio" name="compra" value="1">1
+                    <input type="radio" name="compra" value="2">2
+                    <input type="radio" name="compra" value="3">3
+                    <input type="radio" name="compra" value="4">4
+                    <input type="radio" name="compra" value="5">5
+                </div>
+
+                <p><label>Confío en la información presentada en el video.</label></p>
+                <div class="likert-group">
+                    <input type="radio" name="confianza" value="1">1
+                    <input type="radio" name="confianza" value="2">2
+                    <input type="radio" name="confianza" value="3">3
+                    <input type="radio" name="confianza" value="4">4
+                    <input type="radio" name="confianza" value="5">5
+                </div>
+
+                <p><label>La voz utilizada en el video se sintió natural y agradable.</label></p>
+                <div class="likert-group">
+                    <input type="radio" name="voz" value="1">1
+                    <input type="radio" name="voz" value="2">2
+                    <input type="radio" name="voz" value="3">3
+                    <input type="radio" name="voz" value="4">4
+                    <input type="radio" name="voz" value="5">5
+                </div>
+
+                <p><label>El video fue relevante para el tipo de producto que promociona.</label></p>
+                <div class="likert-group">
+                    <input type="radio" name="relevancia" value="1">1
+                    <input type="radio" name="relevancia" value="2">2
+                    <input type="radio" name="relevancia" value="3">3
+                    <input type="radio" name="relevancia" value="4">4
+                    <input type="radio" name="relevancia" value="5">5
+                </div>
               </div>
 
-              <div class="section">
-                <h3>Percepción sobre los Videos con IA</h3>
-                <p><label>¿Sabías que eran generados por IA?</label><br></p>
-                <p><input type="radio" name="awareness_ia" value="Sí, lo supe desde el principio"> Sí<br>
-                <input type="radio" name="awareness_ia" value="No, no lo noté"> No lo noté<br>
-                <input type="radio" name="awareness_ia" value="No estoy seguro/a"> No estoy seguro/a<br></p>
 
+              <div class="section">
+                <h3>Percepción sobre el uso de IA</h3>
                 <p><label>¿Qué impresión te dejaron los videos? (elige hasta 3)</label><br></p>
                 <p><input type="checkbox" name="impression" value="Profesionales"> Profesionales<br>
-                <input type="checkbox" name="impression" value="Artificiales"> Artificiales<br>
-                <input type="checkbox" name="impression" value="Creativos"> Creativos<br>
-                <input type="checkbox" name="impression" value="Interesantes"> Interesantes<br>
-                <input type="checkbox" name="impression" value="Genéricos"> Genéricos<br>
-                <input type="checkbox" name="impression" value="Confusos"> Confusos<br>
-                <input type="checkbox" name="impression" value="Innovadores"> Innovadores<br></p>
+                    <input type="checkbox" name="impression" value="Artificiales"> Artificiales<br>
+                    <input type="checkbox" name="impression" value="Creativos"> Creativos<br>
+                    <input type="checkbox" name="impression" value="Interesantes"> Interesantes<br>
+                    <input type="checkbox" name="impression" value="Genéricos"> Genéricos<br>
+                    <input type="checkbox" name="impression" value="Confusos"> Confusos<br>
+                    <input type="checkbox" name="impression" value="Innovadores"> Innovadores<br>
+                </p>
 
                 <p><label>¿Cómo calificarías la calidad visual?</label><br></p>
-                <p><input type="radio" name="visual_quality" value="Excelente"> Excelente<br>
-                <input type="radio" name="visual_quality" value="Buena"> Buena<br>
-                <input type="radio" name="visual_quality" value="Aceptable"> Aceptable<br>
-                <input type="radio" name="visual_quality" value="Mala"> Mala<br></p>
-
-                <p><label>¿Y la calidad del contenido?</label><br></p>
-                <p><input type="radio" name="content_quality" value="Muy claro y persuasivo"> Muy claro<br>
-                <input type="radio" name="content_quality" value="Claro, pero poco convincente"> Claro pero poco convincente<br>
-                <input type="radio" name="content_quality" value="Poco claro o confuso"> Poco claro<br>
-                <input type="radio" name="content_quality" value="No me pareció relevante"> No relevante<br></p>
-
-                <p><label>¿El saber que fueron hechos con IA cambia tu percepción?</label><br></p>
-                <p><input type="radio" name="trust_effect" value="Más confianza"> Más confianza<br>
-                <input type="radio" name="trust_effect" value="Desconfianza"> Desconfianza<br>
-                <input type="radio" name="trust_effect" value="No cambia"> No cambia<br>
-                <input type="radio" name="trust_effect" value="No estoy seguro/a"> No seguro<br></p>
-
-                <p><label>¿Usar IA en marketing es...?</label><br></p>
-                <p><input type="radio" name="ethical_view" value="Innovador y positivo"> Innovador<br>
-                <input type="radio" name="ethical_view" value="Aceptable si se usa con transparencia"> Aceptable<br>
-                <input type="radio" name="ethical_view" value="Poco ético o manipulador"> Poco ético<br>
-                <input type="radio" name="ethical_view" value="Indiferente"> Indiferente<br></p>
-
-                <p><label>¿El video te motivó a buscar más información?</label><br></p>
-                <p><input type="radio" name="motivation" value="Sí"> Sí<br>
-                <input type="radio" name="motivation" value="No"> No<br>
-                <input type="radio" name="motivation" value="Tal vez"> Tal vez<br></p>
-
-                <p><label>¿Te gustaría ver más contenido generado por IA?</label><br>
-                    <input type="radio" name="future_content" value="Sí"> Sí<br>
-                    <input type="radio" name="future_content" value="No"> No<br>
-                    <input type="radio" name="future_content" value="Depende"> Depende<br>
-                </p>
-                <p id="dependeTextWrapper" style="display:none; margin-top: 10px;">
-                    <label for="depende_explanation">¿De qué depende?</label><br>
-                    <textarea id="depende_explanation" name="depende_explanation" rows="3" style="width:100%; border-radius:5px; border:1px solid #ccc; margin-top:8px;"></textarea>
+                <p>
+                    <input type="radio" name="visual_quality" value="Excelente"> Excelente<br>
+                    <input type="radio" name="visual_quality" value="Buena"> Buena<br>
+                    <input type="radio" name="visual_quality" value="Aceptable"> Aceptable<br>
+                    <input type="radio" name="visual_quality" value="Mala"> Mala<br>
                 </p>
 
-                <p><label>¿Qué mejorarías?</label><br></p>
-                <p><textarea id="video_feedback"></textarea><br></p>
+                <p><label>¿Sabías que este video fue generado por inteligencia artificial?</label><br></p>
+                <p>
+                    <input type="radio" name="sabia_ia" value="Sí"> Sí<br>
+                    <input type="radio" name="sabia_ia" value="No"> No<br>
+                    <input type="radio" name="sabia_ia" value="No estoy seguro/a"> No estoy seguro/a<br>
+                </p>
+                
+                <p><label>Saber que fue creado por IA cambia tu percepción del contenido.</label><br></p>
+                <p>
+                    <input type="radio" name="percepcion_cambio" value="Más confianza"> Me genera más confianza<br>
+                    <input type="radio" name="percepcion_cambio" value="Desconfianza"> Me genera desconfianza<br>
+                    <input type="radio" name="percepcion_cambio" value="No cambia"> No cambia mi percepción<br>
+                </p>
+
+                <p><label>Me sentiría cómodo(a) viendo más contenido como este en redes sociales.</label></p>
+                <p>
+                    <input type="radio" name="comodo_ia" value="1"> 1
+                    <input type="radio" name="comodo_ia" value="2"> 2
+                    <input type="radio" name="comodo_ia" value="3"> 3
+                    <input type="radio" name="comodo_ia" value="4"> 4
+                    <input type="radio" name="comodo_ia" value="5"> 5<br>
+                </p>
+                   
+                <p><label>El uso de IA en la creación de contenido publicitario me parece:</label><br></p>
+                <p>
+                    <input type="radio" name="opinion_ia" value="Muy positivo"> Muy positivo<br>
+                    <input type="radio" name="opinion_ia" value="Positivo"> Positivo<br>
+                    <input type="radio" name="opinion_ia" value="Neutro"> Neutro<br>
+                    <input type="radio" name="opinion_ia" value="Negativo"> Negativo<br>
+                    <input type="radio" name="opinion_ia" value="Preocupante"> Preocupante<br>
+                    <input type="radio" name="opinion_ia" value="No estoy seguro"> No estoy seguro<br>
+                </p>
+                <p>
+                    <label>¿Qué mejorarías en este tipo de contenido publicitario generado por IA?</label><br>
+                    <textarea name="mejoras" id="mejora"></textarea>
+                </p>
               </div>
 
-              
-              <div class="section">
-                <h3>Valoración en Escala (Likert 1-5)</h3>
-                <p style="font-style: italic; margin-bottom: 20px; color: #555;">Por favor responde según tu grado de acuerdo con cada afirmación. 
-                <strong>1</strong> significa “Muy en desacuerdo” y <strong>5</strong> significa “Muy de acuerdo”.</p>
-
-                <p><label>Los videos generados con IA se ven profesionales</label><br></p>
-                <p><input type="radio" name="likert_profesional" value="1"> 1
-                <input type="radio" name="likert_profesional" value="2"> 2
-                <input type="radio" name="likert_profesional" value="3"> 3
-                <input type="radio" name="likert_profesional" value="4"> 4
-                <input type="radio" name="likert_profesional" value="5"> 5<br></p>
-    
-                <p><label>Los mensajes fueron claros</label><br></p>
-                <p><input type="radio" name="likert_mensaje_claro" value="1"> 1
-                <input type="radio" name="likert_mensaje_claro" value="2"> 2
-                <input type="radio" name="likert_mensaje_claro" value="3"> 3
-                <input type="radio" name="likert_mensaje_claro" value="4"> 4
-                <input type="radio" name="likert_mensaje_claro" value="5"> 5<br></p>
-    
-                <p><label>Confiaría en productos con videos hechos por IA</label><br></p>
-                <p><input type="radio" name="likert_confianza" value="1"> 1
-                <input type="radio" name="likert_confianza" value="2"> 2
-                <input type="radio" name="likert_confianza" value="3"> 3
-                <input type="radio" name="likert_confianza" value="4"> 4
-                <input type="radio" name="likert_confianza" value="5"> 5<br></p>
-    
-                <p><label>Me parece atractiva la idea de usar IA en publicidad</label><br></p>
-                <p><input type="radio" name="likert_uso_ia" value="1"> 1
-                <input type="radio" name="likert_uso_ia" value="2"> 2
-                <input type="radio" name="likert_uso_ia" value="3"> 3
-                <input type="radio" name="likert_uso_ia" value="4"> 4
-                <input type="radio" name="likert_uso_ia" value="5"> 5<br><br></p>
-              </div>
-
-            <p><label>Comentarios adicionales:</label><br>
-                <textarea id="additional-comments" rows="4"></textarea></p>
             <button type="button" onclick="submitSurvey()">Enviar respuestas</button>
         </form>
     </div>
@@ -549,11 +597,16 @@
 
     function updateProgressBar() {
         const totalFields = [
-            'participant-name', 'participant-age', 'participant-profession',
-            'preferred', 'clear_message', 'awareness_ia', 'visual_quality',
-            'content_quality', 'trust_effect', 'ethical_view', 'motivation',
-            'future_content', 'likert_profesional', 'likert_mensaje_claro',
-            'likert_confianza', 'likert_uso_ia'
+            'participant-name', 'participant-age', 'participant-profession', 'buying_frequency', 'reels',
+            'claridad', 'comprension', 'atencion', 'interes', 'compra', 'confianza', 'voz','relevancia',
+
+            'impression','visual_quality',
+            'sabia_ia',
+            'percepcion_cambio',
+            'comodo_ia',
+            'opinion_ia',
+            'mejoras'
+
         ];
 
         let filledCount = 0;
@@ -587,42 +640,40 @@
 
         const name = document.getElementById('participant-name').value.trim();
         const age = document.getElementById('participant-age').value.trim();
-        const profession = document.getElementById('participant-profession').value.trim();
-        const comments = document.getElementById('additional-comments').value.trim();
-        const feedback = document.getElementById('video_feedback')?.value.trim() || '';
+        const profession = getCheckboxValues('participant-profession');
+        const reels = getRadioValue('reels');
+        const buying_frequency = getRadioValue('buying_frequency');
 
-        const preferred = getRadioValue('preferred');
-        const clearMessage = getRadioValue('clear_message');
+        const claridad = getRadioValue('claridad');
+        const comprension = getRadioValue('comprension');
+        const atencion = getRadioValue('atencion');
+        const interes = getRadioValue('interes');
+        const compra = getRadioValue('compra');
+        const confianza = getRadioValue('confianza');
+        const voz = getRadioValue('voz');
+        const relevancia = getRadioValue('relevancia');
+
+        const mejora = document.getElementById('mejora')?.value.trim() || '';
 
         // Validación básica mejorada
-        if (!name || !age || isNaN(age) || age <= 0 || !preferred || !clearMessage) {
-            showToast('Por favor completa tu nombre, una edad válida y selecciona las opciones principales.');
+        if (!name || !age || isNaN(age) || age <= 0 || !claridad || !comprension || !confianza) {
+            showToast('Por favor completa todos los campos obligatorios.');
             return;
         }
 
+
         const surveyResults = {
-            name,
-            age,
-            profession,
-            preferred,
-            clear_message: clearMessage,
-            awareness_ia: getRadioValue('awareness_ia'),
+            name, age, profession,buying_frequency, reels,
+            claridad: claridad, comprension: comprension, atencion: atencion, interes: interes, compra: compra, confianza: confianza, voz: voz, relevancia: relevancia,
+            
             impression: getCheckboxValues('impression'),
             visual_quality: getRadioValue('visual_quality'),
-            content_quality: getRadioValue('content_quality'),
-            trust_effect: getRadioValue('trust_effect'),
-            ethical_view: getRadioValue('ethical_view'),
-            motivation: getRadioValue('motivation'),
-            video_feedback: feedback,
-            future_content: getRadioValue('future_content'),
-            future_content_detail: (getRadioValue('future_content') === 'Depende')
-                ? document.getElementById('depende_explanation').value.trim()
-                : '',
-            likert_profesional: getLikert('likert_profesional'),
-            likert_mensaje_claro: getLikert('likert_mensaje_claro'),
-            likert_confianza: getLikert('likert_confianza'),
-            likert_uso_ia: getLikert('likert_uso_ia'),
-            comments,
+            sabia_ia: getRadioValue('sabia_ia'),
+            percepcion_cambio: getRadioValue('percepcion_cambio'),
+            comodo_ia: getRadioValue('comodo_ia'),
+            opinion_ia: getRadioValue('opinion_ia'),
+            mejoras: mejora,
+
             videoTimes,
             interestClicks
         };
@@ -631,7 +682,7 @@
         const submitBtn = document.querySelector('button[onclick="submitSurvey()"]');
         submitBtn.disabled = true;
 
-        fetch('https://script.google.com/macros/s/AKfycbzWSRXX0xsjev0d7zju_ndKHypM_EMwS-ruDLGAaIKuRaBrcL6x392UH92lcxCmbZez/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbx11lC_KvXJMI18wpyqZ3ubmjy-MxVU_R9xfnpr2qRCiXvTKqO0HNpbk4QbYP-hiD6X/exec', {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
